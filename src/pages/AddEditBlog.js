@@ -25,7 +25,22 @@ const AddEditBlog = () => {
   const handleSubmit = (e) => {};
   const onInputChange = (e) => {};
   const onCategoryChange = (e) => {};
-  const onUploadImage = (file) => {};
+  const onUploadImage = (file) => {
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('upload_preset', 'f9t4tsxl');
+
+    axios
+      .post('https://api.cloudinary.com/v1_1/dmpqmgxuv/image/upload', formData)
+      .then((resp) => {
+        toast.info('Image Uploaded Successfully');
+        setFormValue({...formValue, imageUrl: resp.data.url});
+      })
+      .catch((err) => {
+        toast.console.error('Something went wrong');
+      });
+  };
 
   return (
     <MDBValidation
