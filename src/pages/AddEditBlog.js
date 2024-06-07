@@ -1,139 +1,176 @@
-import React, {useState} from 'react';
-import {MDBValidation, MDBInput, MDBBtn} from 'mdb-react-ui-kit';
-import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import {toast} from 'react-toastify';
+  import React, {useState} from 'react';
+  import {MDBValidation, MDBInput, MDBBtn, MDBValidationItem} from 'mdb-react-ui-kit';
+  import {useNavigate} from 'react-router-dom';
+  import axios from 'axios';
+  import {toast} from 'react-toastify';
 
-const initialState = {
-  title: "",
-  description: "",
-  category: "",
-  imageUrl: ""
-}
+  const initialState = {
+    title: "",
+    description: "",
+    category: "",
+    imageUrl: ""
+  }
 
-const options = ["Travel", "Fashion", "Fitness", "Sports", "Food", "Tech"]
+  const options = ["Academia", "Esportes", "Gastronomia/Culinária", "Moda", "Tecnologia", "Viagem"]
 
 
-// f9t4tsxl
-const AddEditBlog = () => {
+  // f9t4tsxl
+  const AddEditBlog = () => {
 
-  const  [formValue, setFormValue] = useState(initialState);
-  const  [categoryErrMsg, setCategoryErrMsg] = useState(null);
-  const  [title, description, category, imageUrl] = formValue;
+    const  [formValue, setFormValue] = useState(initialState);
+    const  [categoryErrMsg, setCategoryErrMsg] = useState(null);
+    const  {title, description, category, imageUrl} = formValue;
 
-  const navigate = useNavigate();
-  const handleSubmit = (e) => {};
-  const onInputChange = (e) => {};
-  const onCategoryChange = (e) => {};
-  const onUploadImage = (file) => {
-    const formData = new FormData();
+    const navigate = useNavigate();
 
-    formData.append('file', file);
-    formData.append('upload_preset', 'f9t4tsxl');
+    const handleSubmit = (e) => {
+      e.preventDefault();
 
-    axios
-      .post('https://api.cloudinary.com/v1_1/dmpqmgxuv/image/upload', formData)
-      .then((resp) => {
-        toast.info('Image Uploaded Successfully');
-        setFormValue({...formValue, imageUrl: resp.data.url});
-      })
-      .catch((err) => {
-        toast.console.error('Something went wrong');
-      });
-  };
+      if(!category){
+        setCategoryErrMsg("Por favor selecione uma categoria");
+      }
 
-  return (
-    <MDBValidation
-      classname='row g-3'
-      style= {{ marginTop: '100px' }}
-      noValidate
-      onSubmit={handleSubmit}
-    >
+    };
 
-      <p classname='fs-2 fw-bold'> Add Blog </p>
+    const onInputChange = (e) => {
+      let {name, value} = e.target;
+      setFormValue({ ...formValue, [name]: value })
 
-      <div
-        style={{
-          margin: 'auto',
-          padding: '15px',
-          maxWidth: '400px',
-          alignContent: 'center'
-        }}
+    };
+
+    const onCategoryChange = (e) => {
+      setCategoryErrMsg(null);
+      setFormValue({ ...formValue, category: e.target.value })
+
+    };
+    
+    const onUploadImage = (file) => {
+
+      const formData = new FormData();
+
+      formData.append('file', file);
+      formData.append('upload_preset', 'f9t4tsxl');
+
+      axios
+        .post('https://api.cloudinary.com/v1_1/dmpqmgxuv/image/upload', formData)
+        .then((resp) => {
+          console.log("response", resp);
+          toast.info('Imagem enviada com sucesso!');
+          setFormValue({ ...formValue, imageUrl: resp.data.url });
+        })
+        .catch((err) => {
+          toast.console.error('Algo deu errado!');
+        });
+    };
+
+    return (
+      <MDBValidation
+        className='row g-3'
+        style= {{ marginTop: '100px' }}
+        noValidate
+        onSubmit={handleSubmit}
       >
 
-        <MDBInput 
-          value = {title || ''}
-          name = 'title'
-          type = 'text'
-          onChange = {onInputChange}
-          required
-          label = 'Title'
-          validation='Please provide a title'
-          invalid
-        />
-        <br />
+        <p className='fs-2 fw-bold'> Add Blog </p>
 
-        <MDBInput 
-          value = {description || ''}
-          name = 'description'
-          type = 'text'
-          onChange = {onInputChange}
-          required
-          label = 'Description'
-          validation='Please provide a description'
-          textarea
-          rows={4}
-          invalid
-        />
-        <br />
+        <div
+          style={{
+            margin: 'auto',
+            padding: '15px',
+            maxWidth: '400px',
+            alignContent: 'center'
+          }}
+        >
 
-        <MDBInput 
-          name = 'title'
-          type = 'file'
-          onChange = {(e) => onUploadImage(e.target.files[0])}
-          required
-          label = 'Title'
-          validation='Please provide a title'
-          invalid
-        />
-        <br />
+          <MDBValidationItem 
+            feedback='Título pendente' 
+            invalid
+          > 
+            <MDBInput 
+              value = {title || ''}
+              name = 'title'
+              type = 'text'
+              onChange = {onInputChange}
+              required
+              label = 'Título'
+            />
+          </MDBValidationItem>
+          <br />
 
-        <select 
-          className='categoryDropdown' 
-          onChange={onCategoryChange} 
-          value={category} 
-        > 
-          <option> Please select category </option>
+          <MDBValidationItem 
+            feedback='Descrição pendente' 
+            invalid
+          > 
 
-          {options.map((option, index) => (
-            <option value={option || ''} key={index}> 
-              {option} 
-            </option>
-          ))}
+            <MDBInput 
+              value = {description || ''}
+              name = 'description'
+              type = 'text'
+              onChange = {onInputChange}
+              required
+              label = 'Descrição'
+              textarea
+              rows={4}
+            />
+          </MDBValidationItem>
+          <br />
 
-        </select>
-        <br />
-        <br />
+          <MDBValidationItem 
+            feedback='Anexo Pendente' 
+            invalid
+          > 
+            <MDBInput 
+              name = 'title'
+              type = 'file'
+              onChange = {(e) => onUploadImage(e.target.files[0])}
+              required
+            />
+          </MDBValidationItem>
 
-        <MDBBtn 
-          type='submit' 
-          style={{marginRight: '10px'}}
-        > 
-          Add 
-        </MDBBtn>
 
-        <MDBBtn 
-          type='submit' 
-          style={{marginRight: '10px'}} 
-          onClick={() => navigate('/')}
-        > 
-          Go Back 
-        </MDBBtn>
+          <br />
 
-      </div>
+          <select 
+            className='categoryDropdown' 
+            onChange={onCategoryChange} 
+            value={category} 
+          > 
+            <option> Selecione uma categoria </option>
 
-    </MDBValidation>
-  );
-}
+            {options.map((option, index) => (
+              <option value={option || ''} key={index}> 
+                {option} 
+              </option>
+            ))}
 
-export default AddEditBlog
+          </select>
+
+            {categoryErrMsg &&(
+              <div className='categoryErrMsg'> {categoryErrMsg} </div>
+            )}
+          
+          <br />
+          <br />
+
+          <MDBBtn 
+            type='submit' 
+            style={{marginRight: '10px'}}
+          > 
+            Add 
+          </MDBBtn>
+
+          <MDBBtn 
+            color='danger' 
+            style={{marginRight: '10px'}} 
+            onClick={() => navigate('/')}
+          > 
+            Go Back 
+          </MDBBtn>
+
+        </div>
+
+      </MDBValidation>
+    );
+  }
+
+  export default AddEditBlog
