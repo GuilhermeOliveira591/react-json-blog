@@ -23,11 +23,35 @@
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const getDate = () => {
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, "0");
+      let mm = String(today.getMonth() + 1).padStart(2, "0");
+      let yyyy = today.getFullYear();
+
+      return `${mm}/${dd}/${yyyy}`; 
+    }
+
+    const handleSubmit = async (e) => {
       e.preventDefault();
 
       if(!category){
         setCategoryErrMsg("Por favor selecione uma categoria");
+      }
+
+      if(title && description && imageUrl && category){
+        const currentDate = getDate(); 
+        const updatedBlogData = {...formValue, date: currentDate};
+        const response = await axios.post("http://localhost:5000/blogs", updatedBlogData);
+
+        if(response.status === 201){
+          toast.success("Blog Criado Com Sucesso!");
+        } else{
+          toast.error("Algo deu errado!");
+        }
+
+        setFormValue({title: "", description: "", category: "", imageUrl: ""});
+        navigate("/");
       }
 
     };
