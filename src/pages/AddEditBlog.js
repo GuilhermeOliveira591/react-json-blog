@@ -29,7 +29,7 @@
       let mm = String(today.getMonth() + 1).padStart(2, "0");
       let yyyy = today.getFullYear();
 
-      return `${mm}/${dd}/${yyyy}`; 
+      return `${dd}/${mm}/${yyyy}`; 
     }
 
     const handleSubmit = async (e) => {
