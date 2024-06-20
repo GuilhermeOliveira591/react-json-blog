@@ -22,7 +22,18 @@ const Home = () => {
     }
   };
 
-  const handleDelete = () => {};
+  const handleDelete = async (id) => {
+    if(window.confirm("Tem certeza que deseja excluir?")){
+      const response = await axios.delete(`http://localhost:5000/blogs/${id}`);
+
+      if (response.status === 200){
+        toast.success("Excluído com sucesso!");
+        loadBlogsData();
+      } else{
+        toast.error('Algo deu errado!');
+      }
+    }
+  };
 
   const excerpt = (str) => {
     return str.length > 50 ? str.substring(0, 50) + "..." : str;

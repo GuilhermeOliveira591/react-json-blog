@@ -31,13 +31,13 @@ const Header = () => {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link mx-2" href="/"><i class="fas fa-home pe-2"></i>Home</a>
+                            <a class="nav-link mx-2" href="/"><i class="fas fa-home pe-2"></i>Página Inicial</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mx-2" href="/addBlog"><i class="fas fa-plus-circle pe-2"></i>Add Blog</a>
+                            <a class="nav-link mx-2" href="/addBlog"><i class="fas fa-plus-circle pe-2"></i>Adicionar Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mx-2" href="/about"><i class="fas fa-info-circle pe-2"></i>About</a>
+                            <a class="nav-link mx-2" href="/about"><i class="fas fa-info-circle pe-2"></i>Sobre</a>
                         </li>
                     </ul>
                     </div>

@@ -1,6 +1,6 @@
-  import React, {useState} from 'react';
+  import React, {useEffect, useState} from 'react';
   import {MDBValidation, MDBInput, MDBBtn, MDBValidationItem} from 'mdb-react-ui-kit';
-  import {useNavigate} from 'react-router-dom';
+  import {useNavigate, useParams} from 'react-router-dom';
   import axios from 'axios';
   import {toast} from 'react-toastify';
 
@@ -19,9 +19,32 @@
 
     const  [formValue, setFormValue] = useState(initialState);
     const  [categoryErrMsg, setCategoryErrMsg] = useState(null);
+    const  [editMode, setEditMode] = useState(false);
     const  {title, description, category, imageUrl} = formValue;
 
     const navigate = useNavigate();
+
+    const {id} = useParams();
+
+    useEffect(() => {
+      if(id){
+        setEditMode(true);
+        getSingleBlog(id);
+      } else{
+        setEditMode(false);
+        setFormValue({...initialState});
+      }
+    }, [id]);
+
+    const getSingleBlog = async (id) => {
+      const singleBlog  = await axios.get(`http://localhost:5000/blogs/${id}`);
+      if(singleBlog.status === 200){
+        setFormValue({ ...singleBlog.data });
+      } else{
+        toast.error('Algo deu errado!');
+      }
+
+    }
 
     const getDate = () => {
       let today = new Date();
@@ -39,15 +62,28 @@
         setCategoryErrMsg("Por favor selecione uma categoria");
       }
 
+      const imageValidation = !editMode ? imageUrl : true;
+
       if(title && description && imageUrl && category){
         const currentDate = getDate(); 
-        const updatedBlogData = {...formValue, date: currentDate};
-        const response = await axios.post("http://localhost:5000/blogs", updatedBlogData);
 
-        if(response.status === 201){
-          toast.success("Blog Criado Com Sucesso!");
+        if(!editMode){
+          const updatedBlogData = {...formValue, date: currentDate};
+          const response = await axios.post("http://localhost:5000/blogs", updatedBlogData);
+
+          if(response.status === 201){
+            toast.success("Blog Criado Com Sucesso!");
+          } else{
+            toast.error("Algo deu errado!");
+          }
         } else{
-          toast.error("Algo deu errado!");
+          const response = await axios.put(`http://localhost:5000/blogs/${id}`, formValue);
+
+          if(response.status === 200){
+            toast.success("Blog Atualizado Com Sucesso!");
+          } else{
+            toast.error("Algo deu errado!");
+          }
         }
 
         setFormValue({title: "", description: "", category: "", imageUrl: ""});
@@ -95,7 +131,7 @@
         onSubmit={handleSubmit}
       >
 
-        <p className='fs-2 fw-bold'> Add Blog </p>
+        <p className='fs-2 fw-bold'> {editMode ? "Editar Blog" : "Adicionar Blog"} </p>
 
         <div
           style={{
@@ -139,20 +175,24 @@
           </MDBValidationItem>
           <br />
 
-          <MDBValidationItem 
-            feedback='Anexo Pendente' 
-            invalid
-          > 
-            <MDBInput 
-              name = 'title'
-              type = 'file'
-              onChange = {(e) => onUploadImage(e.target.files[0])}
-              required
-            />
-          </MDBValidationItem>
+          {!editMode && (
+            <>
+              <MDBValidationItem 
+                feedback='Anexo Pendente' 
+                invalid
+              > 
+                <MDBInput 
+                  name = 'title'
+                  type = 'file'
+                  onChange = {(e) => onUploadImage(e.target.files[0])}
+                  required
+                />
+              </MDBValidationItem>
 
+              <br />
 
-          <br />
+            </>
+          )}
 
           <select 
             className='categoryDropdown' 
@@ -180,7 +220,7 @@
             type='submit' 
             style={{marginRight: '10px'}}
           > 
-            Add 
+            {editMode ? "Atualizar" : "Adicionar"} 
           </MDBBtn>
 
           <MDBBtn 
@@ -188,7 +228,7 @@
             style={{marginRight: '10px'}} 
             onClick={() => navigate('/')}
           > 
-            Go Back 
+            Voltar
           </MDBBtn>
 
         </div>

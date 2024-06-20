@@ -12,6 +12,7 @@ import {
 
 import { Link } from 'react-router-dom';
 import Badge from './Badge';
+import {toast} from 'react-toastify';
 
 const Blogs = ({title, category, description, id, imageUrl, excerpt, handleDelete}) => {
   return (
