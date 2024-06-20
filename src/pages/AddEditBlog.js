@@ -11,7 +11,7 @@
     imageUrl: ""
   }
 
-  const options = ["Academia", "Esportes", "Gastronomia/Culinária", "Moda", "Tecnologia", "Viagem"]
+  const options = ["Academia", "Esportes", "Gastronomia", "Moda", "Tecnologia", "Viagem"]
 
 
   // f9t4tsxl

@@ -1,19 +1,26 @@
+import { MDBBadge } from 'mdb-react-ui-kit';
 import React from 'react';
 
 const Badge = ({children, styleInfo}) => {
     const colorKey = {
-        Academia: 'danger',
-        Esportes: 'dark',
-        GastronomiaCulinaria: 'warning',
-        Moda: 'primary',
-        Tecnologia: 'info',
-        Viagem: 'success',
+      Moda: 'primary',
+      Viagem: 'success',
+      Academia: 'danger',
+      Gastronomia: 'warning',
+      Tecnologia: 'info',
+      Esportes: 'dark'
     }
+
+    const cleanArray = (children) => {
+      return children.filter(item => item.trim() !== "");
+    };
+
+    const cleanedChildren = cleanArray(children);
     
   return (
-    <div>
-
-    </div>
+    <h5 style={styleInfo}>
+      <MDBBadge color={colorKey[cleanedChildren]}> {children} </MDBBadge>
+    </h5>
   )
 }
 

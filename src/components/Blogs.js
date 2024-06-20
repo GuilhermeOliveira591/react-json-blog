@@ -11,6 +11,7 @@ import {
 } from 'mdb-react-ui-kit';
 
 import { Link } from 'react-router-dom';
+import Badge from './Badge';
 
 const Blogs = ({title, category, description, id, imageUrl, excerpt, handleDelete}) => {
   return (
@@ -29,7 +30,7 @@ const Blogs = ({title, category, description, id, imageUrl, excerpt, handleDelet
                     <Link to={`/blog/${id}`}> Leia Mais </Link>
                 </MDBCardText>
 
-                <p> {category} </p>
+                <Badge> {category} </Badge>
 
                 <span>
                     <MDBBtn 

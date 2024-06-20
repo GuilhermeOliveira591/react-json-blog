@@ -22,8 +22,6 @@ const Home = () => {
     }
   };
 
-  console.log('data', data);
-
   const handleDelete = () => {};
 
   const excerpt = (str) => {
