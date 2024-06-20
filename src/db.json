@@ -1,16 +1,8 @@
 {
   "blogs": [
     {
-      "id": "2ccb",
-      "title": "13112",
-      "description": "12321321",
-      "category": "Academia",
-      "imageUrl": "http://res.cloudinary.com/dmpqmgxuv/image/upload/v1718895029/q3a9e3wtt0qwf80vzbm6.jpg",
-      "date": "20/06/2024"
-    },
-    {
       "id": "d13b",
-      "title": "Comidas Deliciosas",
+      "title": "FLV BRASIL",
       "description": "Segmento de FLV no Brasil segue em queda! Seus pratos deveram ter menos tomate diz o Governo \"É uma medida drástica, mas temos que ser francos\"",
       "category": "Gastronomia",
       "imageUrl": "http://res.cloudinary.com/dmpqmgxuv/image/upload/v1718902356/jfgyqdaliqldqdx9b8op.jpg",
@@ -18,10 +10,18 @@
     },
     {
       "id": "61c3",
-      "title": "1331",
-      "description": "123223",
+      "title": "Como fazer macarrão",
+      "description": "Italiano chora ao ver Spaghetti sendo quebrado em pedaços",
       "category": "Gastronomia",
       "imageUrl": "http://res.cloudinary.com/dmpqmgxuv/image/upload/v1718903018/jgip3e1j3an5faztinwd.jpg",
+      "date": "20/06/2024"
+    },
+    {
+      "id": "dac2",
+      "title": "Tecnologia TI",
+      "description": "Testes",
+      "category": "Tecnologia",
+      "imageUrl": "http://res.cloudinary.com/dmpqmgxuv/image/upload/v1718905387/fhrrjhn1bn6nij2sozf0.jpg",
       "date": "20/06/2024"
     }
   ]

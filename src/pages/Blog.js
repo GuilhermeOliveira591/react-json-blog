@@ -93,12 +93,18 @@ const Blog = () => {
           {blog && blog.description}
         </MDBTypography>
 
+        <br/>
+
       </div>
       {relatedPost && relatedPost.length > 0 && (
         <>
-        <h1>Posts Relacionados</h1>
+        {relatedPost.length > 1 && (
+          <h1> Posts Relacionados </h1>
+        )}
         <MDBRow className='row-cols-1 row-cols-md-3 g-4'>
-          {relatedPost.map((item, index) => (
+          {relatedPost
+          .filter((item) => item.id != id)
+          .map((item, index) => (
             <MDBCol>
               <MDBCard>
                 <Link to={`/blog/${item.id}`}>
