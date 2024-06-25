@@ -23,6 +23,14 @@
       "category": "Tecnologia",
       "imageUrl": "http://res.cloudinary.com/dmpqmgxuv/image/upload/v1718905387/fhrrjhn1bn6nij2sozf0.jpg",
       "date": "20/06/2024"
+    },
+    {
+      "id": "2388",
+      "title": "bololo",
+      "description": "cake cake cake",
+      "category": "Moda",
+      "imageUrl": "http://res.cloudinary.com/dmpqmgxuv/image/upload/v1719342146/uc7q99mqcwwrvakoh81l.jpg",
+      "date": "25/06/2024"
     }
   ]
 }

@@ -7,7 +7,7 @@ import Search from '../components/Search';
 
 const Home = () => {
   const [data, setData] = useState([]);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     loadBlogsData();
@@ -49,10 +49,12 @@ const Home = () => {
     setSearchValue(e.target.value);
   }
 
-  const handleSearch = async (e, searchValue) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
 
     const response = await axios.get(`http://localhost:5000/blogs?q=${searchValue}`);
+
+    console.log(`http://localhost:5000/blogs?description_like=${searchValue}`);
 
     if (response.status === 200){
       setData(response.data);
@@ -60,14 +62,15 @@ const Home = () => {
       toast.error('Algo deu errado!');
     }
 
-  }
+  };
 
   return (
     <>
       <Search 
+        handleSearch={handleSearch}
         searchValue={searchValue} 
         onInputChange={onInputChange} 
-        handleSearch={handleSearch}
+        
       />
       <MDBRow> 
         {data.length === 0 && (
