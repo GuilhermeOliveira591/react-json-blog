@@ -57,3 +57,9 @@ h1:after{
   text-align: left;
   font-size: 14px;
 }
+
+.latest-title {
+  color: black;
+  font-weight: 600;
+  font-family: monospace;
+}
