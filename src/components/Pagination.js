@@ -4,6 +4,13 @@ import {MDBPagination, MDBPaginationItem, MDBPaginationLink, MDBBtn} from 'mdb-r
 const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) => {
 
     const renderPagination = () => {
+
+        if(currentPage === 0 && data.length < 5 || (totalBlog  === pageLimit && currentPage === 0)){
+            return null;
+        }
+
+
+
         if(currentPage === 0){
             return(
                 <MDBPagination center className='mb-0'>
@@ -15,7 +22,13 @@ const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) =>
 
                     <MDBPaginationItem>
                         <MDBPaginationLink>
-                        <MDBBtn rounded onClick={() => loadBlogsData()}>
+                        <MDBBtn 
+                            style={{marginTop: '-8px'}}
+                            rounded 
+                            onClick={() => 
+                                loadBlogsData(5, 10, 1)
+                            }
+                    >
                                 Próxima
                         </MDBBtn>
                         </MDBPaginationLink>
@@ -29,7 +42,12 @@ const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) =>
                 <MDBPagination center className='mb-0'>
                     <MDBPaginationItem>
                         <MDBPaginationLink>
-                            <MDBBtn rounded onClick={() => loadBlogsData()}>
+                            <MDBBtn 
+                                rounded 
+                                onClick={() => 
+                                    loadBlogsData((currentPage - 1) * 5, currentPage * 5, -1)
+                                }
+                            >
                                 Anterior
                             </MDBBtn>
                         </MDBPaginationLink>
@@ -41,7 +59,12 @@ const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) =>
                         </MDBPaginationItem>
 
                         <MDBPaginationItem>
-                            <MDBBtn rounded onClick={() => loadBlogsData()}>
+                            <MDBBtn 
+                                rounded 
+                                onClick={() => 
+                                    loadBlogsData((currentPage + 1) * 5, (currentPage + 2) * 5, 1)
+                                }
+                            >
                                 Próxima
                             </MDBBtn>
                         </MDBPaginationItem>
@@ -54,7 +77,12 @@ const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) =>
             return(
                 <MDBPagination center className='mb-0'>
                     <MDBPaginationItem>
-                        <MDBBtn rounded onClick={() => loadBlogsData()}>
+                        <MDBBtn 
+                            rounded 
+                            onClick={() => 
+                                loadBlogsData((currentPage - 1) * 5, currentPage * 5, -1)
+                            }
+                        >
                             Anterior
                         </MDBBtn>
                     </MDBPaginationItem>

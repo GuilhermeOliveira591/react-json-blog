@@ -24,12 +24,19 @@ const Home = () => {
   }, [])
 
 
-  const loadBlogsData = async (start, end, increase) => {
+  const loadBlogsData = async (start, end, increase, operation) => {
+    const totalBlog = await axios.get('http://localhost:5000/blogs');
+    setTotalBlog(totalBlog.data.length);
     const response = await axios.get(`http://localhost:5000/blogs?_start=${start}&_end=${end}`);
 
     if (response.status === 200){
       setData(response.data);
-      setCurrentPage(currentPage + increase);
+      if(operation){
+        setCurrentPage(0);
+      } else {
+        setCurrentPage(currentPage + increase);
+      }
+
     } else{
       toast.error('Algo deu errado!');
     }
@@ -37,7 +44,6 @@ const Home = () => {
 
   const fetchLatestBlog = async () => {
     const totalBlog = await axios.get('http://localhost:5000/blogs');
-    setTotalBlog(totalBlog.data.length);
     const start = totalBlog.data.length - 4;
     const end = totalBlog.data.length;
 
@@ -57,7 +63,7 @@ const Home = () => {
 
       if (response.status === 200){
         toast.success("Excluído com sucesso!");
-        loadBlogsData();
+        loadBlogsData(0, 5, 0, "delete");
       } else{
         toast.error('Algo deu errado!');
       }
