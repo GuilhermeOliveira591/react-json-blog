@@ -76,7 +76,7 @@ const Home = () => {
 
   const onInputChange = (e) => {
     if( !e.target.value ){
-      loadBlogsData();
+      loadBlogsData(0, 5, 0);
     }
 
     setSearchValue(e.target.value);

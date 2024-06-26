@@ -9,8 +9,6 @@ const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) =>
             return null;
         }
 
-
-
         if(currentPage === 0){
             return(
                 <MDBPagination center className='mb-0'>
@@ -37,7 +35,11 @@ const Pagination = ({currentPage, pageLimit, loadBlogsData, data, totalBlog}) =>
                 </MDBPagination>
 
             )
-        } else if (currentPage < pageLimit - 1 && data.length === pageLimit) {
+        } else if (
+            currentPage < pageLimit - 1 && 
+            data.length === pageLimit && 
+            (totalBlog - data.length) !== pageLimit
+        ) {
             return(
                 <MDBPagination center className='mb-0'>
                     <MDBPaginationItem>
