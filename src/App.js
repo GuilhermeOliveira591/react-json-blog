@@ -1,4 +1,4 @@
-import './App.css';
+import './App.css' ;
 import {Routes, BrowserRouter, Route} from 'react-router-dom';
 import Home from './pages/Home';
 import AddEditBlog from './pages/AddEditBlog';
