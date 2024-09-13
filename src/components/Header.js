@@ -12,7 +12,7 @@ const Header = () => {
                     <a class="navbar-brand" href="/"
                     ><img
                         id="blogify-logo"
-                        src="/images/logo.jpg"
+                        src="public/images/logo.jpg"
                         alt="Blogify Logo"
                         draggable="false"
                         height="30"
